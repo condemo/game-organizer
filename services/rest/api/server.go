@@ -11,6 +11,7 @@ import (
 
 	"github.com/condemo/game-organizer/services/rest/api/handlers"
 	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
 )
 
@@ -29,7 +30,7 @@ func (s *ApiServer) Run() {
 		AllowedMethods:   []string{"GET", "POST", "DELETE", "OPTIONS", "PUT"},
 		AllowCredentials: false,
 		MaxAge:           300,
-	}))
+	}), middleware.Logger)
 
 	gameHandler := handlers.NewGameHandler()
 	r.Mount("/games", gameHandler.RegisterRoutes())

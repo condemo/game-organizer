@@ -21,10 +21,8 @@ clean:
 	@rm -rf ./bin/*
 	@go clean
 
-
-
-goose-up:
+up:
 	@goose up
-goose-down:
+down:
 	@goose down
 

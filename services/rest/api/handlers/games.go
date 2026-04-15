@@ -17,7 +17,10 @@ func NewGameHandler(s *service.GameOrganizerService) *GameHandler {
 
 func (h *GameHandler) RegisterRoutes() http.Handler {
 	r := chi.NewRouter()
+	r.Get("/", MakeHandler(h.getGames))
+	r.Get("/{id}", MakeHandler(h.getOneGame))
 	r.Get("/search", MakeHandler(h.search))
+	r.Put("/", MakeHandler(h.createGame))
 	r.Delete("/", MakeHandler(h.deleteGame))
 	r.Put("/", MakeHandler(h.updateGame))
 
@@ -25,7 +28,22 @@ func (h *GameHandler) RegisterRoutes() http.Handler {
 }
 
 // TODO:
+func (h *GameHandler) getOneGame(w http.ResponseWriter, r *http.Request) error {
+	return nil
+}
+
+// TODO:
+func (h *GameHandler) getGames(w http.ResponseWriter, r *http.Request) error {
+	return nil
+}
+
+// TODO:
 func (h *GameHandler) search(w http.ResponseWriter, r *http.Request) error {
+	return nil
+}
+
+// TODO:
+func (h *GameHandler) createGame(w http.ResponseWriter, r *http.Request) error {
 	return nil
 }
 

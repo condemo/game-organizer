@@ -33,18 +33,18 @@ type IGDBGameResponse struct {
 }
 
 type Game struct {
-	ID          int64     `db:"id"`
-	IgdbID      int64     `db:"igdb_id"`
-	Title       string    `db:"title"`
-	Screenshot  string    `db:"screenshot"`
-	ReleaseDate time.Time `db:"release_date"`
-	Genres      string    `db:"genres"`
-	Developer   string    `db:"developer"`
-	Publisher   string    `db:"publisher"`
-	Platforms   string    `db:"platforms"`
-	Rating      int       `db:"rating"`
-	Url         string    `db:"url"`
-	Played      bool      `db:"player"`
-	Pending     bool      `db:"pending"`
-	CreatedAt   time.Time `db:"created_at"`
+	ID          int64     `db:"id" json:"id"`
+	IgdbID      int64     `db:"igdb_id" json:"igdb_id"`
+	Title       string    `db:"title" json:"title"`
+	Screenshot  string    `db:"screenshot" json:"screenshot"`
+	ReleaseDate time.Time `db:"release_date" json:"release_date"`
+	Genres      string    `db:"genres" json:"genres"`
+	Developer   string    `db:"developer" json:"developer"`
+	Publisher   string    `db:"publisher" json:"publisher"`
+	Platforms   string    `db:"platforms" json:"platforms"`
+	Rating      int       `db:"rating" json:"rating"`
+	Url         string    `db:"url" json:"url"`
+	Played      bool      `db:"player" json:"player"`
+	Pending     bool      `db:"pending" json:"pending"`
+	CreatedAt   time.Time `db:"created_at" json:"created_at"`
 }

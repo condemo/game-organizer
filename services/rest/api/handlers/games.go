@@ -17,14 +17,20 @@ func NewGameHandler(s *service.GameOrganizerService) *GameHandler {
 
 func (h *GameHandler) RegisterRoutes() http.Handler {
 	r := chi.NewRouter()
-	r.Get("/", MakeHandler(h.getGames))
+	r.Get("/fetch/{id}", MakeHandler(h.getFetchGame))
 	r.Get("/{id}", MakeHandler(h.getOneGame))
+	r.Get("/", MakeHandler(h.getGames))
 	r.Get("/search", MakeHandler(h.search))
 	r.Put("/", MakeHandler(h.createGame))
-	r.Delete("/", MakeHandler(h.deleteGame))
 	r.Put("/", MakeHandler(h.updateGame))
+	r.Delete("/", MakeHandler(h.deleteGame))
 
 	return r
+}
+
+// TODO:
+func (h *GameHandler) getFetchGame(w http.ResponseWriter, r *http.Request) error {
+	return nil
 }
 
 // TODO:

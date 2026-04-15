@@ -12,11 +12,11 @@ type IGDBCardResponse struct {
 }
 
 type GameCard struct {
-	Title       string
-	Platforms   []string
-	ReleaseDate time.Time
-	Cover       string
-	Developer   string
+	Title       string    `json:"title"`
+	Platforms   string    `json:"platforms"`
+	ReleaseDate time.Time `json:"release_date"`
+	Cover       string    `json:"cover"`
+	Developer   string    `json:"developer"`
 }
 
 // TODO:

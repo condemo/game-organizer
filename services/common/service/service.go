@@ -1,11 +1,46 @@
 package service
 
-import "github.com/condemo/game-organizer/services/common/store"
+import (
+	"net/http"
+
+	"github.com/condemo/game-organizer/services/common/store"
+	"github.com/condemo/game-organizer/services/common/types"
+)
 
 type GameOrganizerService struct {
-	store store.Storage
+	store      store.Storage
+	httpClient *http.Client
 }
 
 func NewGameOrganizerService(st store.Storage) *GameOrganizerService {
-	return &GameOrganizerService{store: st}
+	hc := &http.Client{}
+	return &GameOrganizerService{store: st, httpClient: hc}
+}
+
+func (s *GameOrganizerService) GetFetchGame(igdbID int) (*types.Game, error) {
+	return nil, nil
+}
+
+func (s *GameOrganizerService) GetOneGame(id int) (*types.Game, error) {
+	return nil, nil
+}
+
+func (s *GameOrganizerService) GetGames() ([]types.GameCard, error) {
+	return nil, nil
+}
+
+func (s *GameOrganizerService) Search(q string) ([]types.GameCard, error) {
+	return nil, nil
+}
+
+func (s *GameOrganizerService) CreateGame(g types.Game) *types.Game {
+	return nil
+}
+
+func (s *GameOrganizerService) UpdateGame(g *types.Game) error {
+	return nil
+}
+
+func (s *GameOrganizerService) DeleteGame(id *int) error {
+	return nil
 }

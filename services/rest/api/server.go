@@ -9,6 +9,8 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/condemo/game-organizer/services/common/service"
+	"github.com/condemo/game-organizer/services/common/store"
 	"github.com/condemo/game-organizer/services/rest/api/handlers"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/v5/middleware"
@@ -32,7 +34,15 @@ func (s *ApiServer) Run() {
 		MaxAge:           300,
 	}), middleware.Logger)
 
-	gameHandler := handlers.NewGameHandler()
+	// Database
+	pgDB := store.NewPosgresqlStore()
+	store := store.NewStorage(pgDB)
+
+	// Service
+	service := service.NewGameOrganizerService(*store)
+
+	// Handlers
+	gameHandler := handlers.NewGameHandler(service)
 	r.Mount("/games", gameHandler.RegisterRoutes())
 
 	server := http.Server{

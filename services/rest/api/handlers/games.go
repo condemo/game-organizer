@@ -3,23 +3,38 @@ package handlers
 import (
 	"net/http"
 
+	"github.com/condemo/game-organizer/services/common/service"
 	"github.com/go-chi/chi"
 )
 
-type GameHandler struct{}
+type GameHandler struct {
+	service *service.GameOrganizerService
+}
 
-func NewGameHandler() *GameHandler {
-	return &GameHandler{}
+func NewGameHandler(s *service.GameOrganizerService) *GameHandler {
+	return &GameHandler{service: s}
 }
 
 func (h *GameHandler) RegisterRoutes() http.Handler {
 	r := chi.NewRouter()
-	r.HandleFunc("/test", MakeHandler(h.test))
+	r.Get("/search", MakeHandler(h.search))
+	r.Delete("/", MakeHandler(h.deleteGame))
+	r.Put("/", MakeHandler(h.updateGame))
 
 	return r
 }
 
-func (h *GameHandler) test(w http.ResponseWriter, r *http.Request) error {
-	JsonResponse(w, http.StatusOK, "working")
+// TODO:
+func (h *GameHandler) search(w http.ResponseWriter, r *http.Request) error {
+	return nil
+}
+
+// TODO:
+func (h *GameHandler) updateGame(w http.ResponseWriter, r *http.Request) error {
+	return nil
+}
+
+// TODO:
+func (h *GameHandler) deleteGame(w http.ResponseWriter, r *http.Request) error {
 	return nil
 }

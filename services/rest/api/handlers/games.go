@@ -77,7 +77,8 @@ func (h *GameHandler) getGames(w http.ResponseWriter, r *http.Request) error {
 }
 
 func (h *GameHandler) search(w http.ResponseWriter, r *http.Request) error {
-	res, err := h.service.Search("")
+	q := r.URL.Query().Get("q")
+	res, err := h.service.Search(q)
 	if err != nil {
 		return err
 	}

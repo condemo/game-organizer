@@ -44,7 +44,7 @@ type Game struct {
 	Platforms   string    `db:"platforms" json:"platforms"`
 	Rating      int       `db:"rating" json:"rating"`
 	Url         string    `db:"url" json:"url"`
-	Played      bool      `db:"player" json:"player"`
+	Played      bool      `db:"played" json:"player"`
 	Pending     bool      `db:"pending" json:"pending"`
 	CreatedAt   time.Time `db:"created_at" json:"created_at"`
 }

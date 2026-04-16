@@ -8,13 +8,13 @@ import (
 )
 
 type GameOrganizerService struct {
-	store      store.Storage
+	st         store.Storage
 	httpClient *http.Client
 }
 
 func NewGameOrganizerService(st store.Storage) *GameOrganizerService {
 	hc := &http.Client{}
-	return &GameOrganizerService{store: st, httpClient: hc}
+	return &GameOrganizerService{st: st, httpClient: hc}
 }
 
 func (s *GameOrganizerService) GetFetchGame(igdbID int64) (*types.Game, error) {
@@ -22,7 +22,13 @@ func (s *GameOrganizerService) GetFetchGame(igdbID int64) (*types.Game, error) {
 }
 
 func (s *GameOrganizerService) GetOneGame(id int64) (*types.Game, error) {
-	return nil, nil
+	var game *types.Game
+
+	if err := s.st.GetOneGame(id, game); err != nil {
+		return nil, err
+	}
+
+	return game, nil
 }
 
 func (s *GameOrganizerService) GetGames() ([]types.GameCard, error) {

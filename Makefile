@@ -15,7 +15,7 @@ arm-run: arm-build
 	@./bin/${binary-name}-arm64
 
 test:
-	@go test ./... -v -count=1./services/rest/cmd/main.go
+	@godotenv go test ./... -v -count=1 ./services/rest/cmd/main.go
 
 clean:
 	@rm -rf ./bin/*

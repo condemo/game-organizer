@@ -17,11 +17,11 @@ func NewGameOrganizerService(st store.Storage) *GameOrganizerService {
 	return &GameOrganizerService{store: st, httpClient: hc}
 }
 
-func (s *GameOrganizerService) GetFetchGame(igdbID int) (*types.Game, error) {
+func (s *GameOrganizerService) GetFetchGame(igdbID int64) (*types.Game, error) {
 	return nil, nil
 }
 
-func (s *GameOrganizerService) GetOneGame(id int) (*types.Game, error) {
+func (s *GameOrganizerService) GetOneGame(id int64) (*types.Game, error) {
 	return nil, nil
 }
 
@@ -33,7 +33,7 @@ func (s *GameOrganizerService) Search(q string) ([]types.GameCard, error) {
 	return nil, nil
 }
 
-func (s *GameOrganizerService) CreateGame(g types.Game) *types.Game {
+func (s *GameOrganizerService) CreateGame(g *types.Game) error {
 	return nil
 }
 
@@ -41,6 +41,6 @@ func (s *GameOrganizerService) UpdateGame(g *types.Game) error {
 	return nil
 }
 
-func (s *GameOrganizerService) DeleteGame(id *int) error {
+func (s *GameOrganizerService) DeleteGame(id int64) error {
 	return nil
 }

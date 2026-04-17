@@ -40,6 +40,9 @@ func (s *GameOrganizerService) Search(q string) ([]types.GameCard, error) {
 }
 
 func (s *GameOrganizerService) CreateGame(g *types.Game) error {
+	if err := s.st.CreateGame(g); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -48,5 +51,8 @@ func (s *GameOrganizerService) UpdateGame(g *types.Game) error {
 }
 
 func (s *GameOrganizerService) DeleteGame(id int64) error {
+	if err := s.st.DeleteGame(id); err != nil {
+		return err
+	}
 	return nil
 }

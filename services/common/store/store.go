@@ -27,7 +27,7 @@ func NewStorage(db *sqlx.DB) *Storage {
 // TODO:
 func (s *Storage) GetOneGame(id int64, game *types.Game) error {
 	q := `SELECT id, igdb_id, title, screenshot, release_date, genres, developer, publisher,
-	platforms, rating, url, played, pending, created_at FROM games WHERE id=$1`
+	platforms, rating, url, played, pending, created_at FROM games WHERE id=$1;`
 	if err := s.db.Get(game, q, id); err != nil {
 		return err
 	}
@@ -36,7 +36,13 @@ func (s *Storage) GetOneGame(id int64, game *types.Game) error {
 }
 
 func (s *Storage) GetGames() ([]types.Game, error) {
-	return nil, nil
+	var games []types.Game
+	q := `SELECT id, igdb_id, title, screenshot, release_date, genres, developer, publisher,
+	platforms, rating, url, played, pending, created_at from games;`
+	if err := s.db.SelectContext(context.TODO(), &games, q); err != nil {
+		return nil, err
+	}
+	return games, nil
 }
 
 func (s *Storage) Search(q string) []types.GameCard {
@@ -68,5 +74,11 @@ func (s *Storage) UpdateGame(g *types.Game) error {
 }
 
 func (s *Storage) DeleteGame(id int64) error {
+	q := `DELETE FROM games WHERE id=$1`
+	_, err := s.db.ExecContext(context.TODO(), q, id)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }

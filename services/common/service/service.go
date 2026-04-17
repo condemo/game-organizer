@@ -31,8 +31,14 @@ func (s *GameOrganizerService) GetOneGame(id int64) (*types.Game, error) {
 	return game, nil
 }
 
-func (s *GameOrganizerService) GetGames() ([]types.GameCard, error) {
-	return nil, nil
+// TODO:
+func (s *GameOrganizerService) GetGames() ([]types.GamePoltrait, error) {
+	games, err := s.st.GetGamesPoltrait()
+	if err != nil {
+		return nil, err
+	}
+
+	return games, nil
 }
 
 func (s *GameOrganizerService) Search(q string) ([]types.GameCard, error) {

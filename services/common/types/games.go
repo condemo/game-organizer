@@ -12,6 +12,7 @@ type IGDBCardResponse struct {
 }
 
 type GameCard struct {
+	ID          int64     `json:"id"`
 	Title       string    `json:"title"`
 	Platforms   string    `json:"platforms"`
 	ReleaseDate time.Time `json:"release_date"`
@@ -19,13 +20,21 @@ type GameCard struct {
 	Developer   string    `json:"developer"`
 }
 
-// TODO:
+type GamePoltrait struct {
+	ID      int64  `db:"id" json:"id"`
+	Title   string `db:"title" json:"title"`
+	Cover   string `db:"cover" json:"cover"`
+	Played  bool   `db:"played" json:"played"`
+	Pending bool   `db:"pending" json:"pending"`
+}
+
 type IGDBGameResponse struct {
 	IgdbID            int64     `json:"id"`
 	Screenshots       []int     `json:"screenshots"`
 	Title             string    `json:"name"`
 	ReleaseDate       time.Time `json:"first_release_date"`
 	Genres            []int     `json:"genres"`
+	Cover             int       `json:"cover"`
 	InvolvedCompanies []int     `json:"involved_companies"`
 	Platforms         []int     `json:"platforms"`
 	Rating            int       `json:"rating"`
@@ -37,6 +46,7 @@ type Game struct {
 	IgdbID      int64     `db:"igdb_id" json:"igdb_id"`
 	Title       string    `db:"title" json:"title"`
 	Screenshot  string    `db:"screenshot" json:"screenshot"`
+	Cover       string    `db:"cover" json:"cover"`
 	ReleaseDate time.Time `db:"release_date" json:"release_date"`
 	Genres      string    `db:"genres" json:"genres"`
 	Developer   string    `db:"developer" json:"developer"`

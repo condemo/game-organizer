@@ -10,7 +10,6 @@ import (
 type Store interface {
 	GetOneGame(id int64, game *types.Game) error
 	GetGames() ([]types.Game, error)
-	Search(q string) []types.GameCard
 	CreateGame(g *types.Game) error
 	UpdateGame(g *types.Game) error
 	DeleteGame(id int64) error
@@ -42,10 +41,6 @@ func (s *Storage) GetGamesPoltrait() ([]types.GamePoltrait, error) {
 		return nil, err
 	}
 	return games, nil
-}
-
-func (s *Storage) Search(q string) []types.GameCard {
-	return nil
 }
 
 func (s *Storage) CreateGame(g *types.Game) error {

@@ -18,6 +18,7 @@ var gameMockup = types.Game{
 	ReleaseDate: time.Now(),
 	Genres:      "acción,movidas",
 	Developer:   "Noentiendo",
+	Cover:       "https://fakecovers.com",
 	Publisher:   "Capcom",
 	Platforms:   "PC,Nintendo Switch",
 	Rating:      78,
@@ -38,7 +39,13 @@ func TestCreateGame(t *testing.T) {
 }
 
 func TestGetGame(t *testing.T) {
-	games, err := mockupDB.GetGames()
+	games, err := mockupDB.GetGamesPoltrait()
+	require.NoError(t, err)
+	require.NotEmpty(t, games)
+}
+
+func TestGetGamePoltrait(t *testing.T) {
+	games, err := mockupDB.GetGamesPoltrait()
 	require.NoError(t, err)
 	require.NotEmpty(t, games)
 }

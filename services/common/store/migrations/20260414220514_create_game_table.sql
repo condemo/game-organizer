@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS games (
   igdb_id INTEGER NOT NULL,
   title VARCHAR(80) NOT NULL,
   screenshot VARCHAR,
+  cover VARCHAR,
   release_date DATE,
   genres VARCHAR,
   developer VARCHAR(80),
@@ -18,4 +19,4 @@ CREATE TABLE IF NOT EXISTS games (
 );
 
 -- +goose Down
-DROP TABLE game;
+DROP TABLE games;

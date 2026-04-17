@@ -37,9 +37,20 @@ func TestCreateGame(t *testing.T) {
 	require.NoError(t, err)
 }
 
+func TestGetGame(t *testing.T) {
+	games, err := mockupDB.GetGames()
+	require.NoError(t, err)
+	require.NotEmpty(t, games)
+}
+
 func TestGetOneGame(t *testing.T) {
 	var game types.Game
 	err := mockupDB.GetOneGame(gameMockup.ID, &game)
 	require.NoError(t, err)
 	require.NotEmpty(t, game)
+}
+
+func TestDeleteGame(t *testing.T) {
+	err := mockupDB.DeleteGame(gameMockup.ID)
+	require.NoError(t, err)
 }

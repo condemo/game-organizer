@@ -1,23 +1,24 @@
 package service
 
 import (
-	"net/http"
-
+	"github.com/condemo/game-organizer/services/common/fetch"
 	"github.com/condemo/game-organizer/services/common/store"
 	"github.com/condemo/game-organizer/services/common/types"
 )
 
 type GameOrganizerService struct {
-	st         store.Storage
-	httpClient *http.Client
+	st          store.Storage
+	gameFetcher *fetch.GameFetcher
 }
 
 func NewGameOrganizerService(st store.Storage) *GameOrganizerService {
-	hc := &http.Client{}
-	return &GameOrganizerService{st: st, httpClient: hc}
+	return &GameOrganizerService{st: st, gameFetcher: fetch.NewGameFetcher()}
 }
 
 func (s *GameOrganizerService) GetFetchGame(igdbID int64) (*types.Game, error) {
+	// get raw game with gameFetcher
+	// convertion to types.Game
+	// return to handler
 	return nil, nil
 }
 
@@ -42,6 +43,9 @@ func (s *GameOrganizerService) GetGames() ([]types.GamePoltrait, error) {
 }
 
 func (s *GameOrganizerService) Search(q string) ([]types.GameCard, error) {
+	// get raw game with gameFetcher
+	// convertion to []types.GameCard
+	// return to handler
 	return nil, nil
 }
 
@@ -52,6 +56,7 @@ func (s *GameOrganizerService) CreateGame(g *types.Game) error {
 	return nil
 }
 
+// TODO:
 func (s *GameOrganizerService) UpdateGame(g *types.Game) error {
 	return nil
 }

@@ -59,6 +59,10 @@ func (s *Storage) CreateGame(g *types.Game) error {
 		}
 	}
 
+	if err := rows.Close(); err != nil {
+		return err
+	}
+
 	return nil
 }
 

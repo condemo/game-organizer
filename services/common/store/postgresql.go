@@ -9,7 +9,6 @@ import (
 	_ "github.com/lib/pq"
 )
 
-// TODO:
 func NewPosgresqlStore() *sqlx.DB {
 	dsn := fmt.Sprintf("host=%s user=%s password=%s port=%s dbname=%s",
 		config.EnvConfig.Host, config.EnvConfig.User, config.EnvConfig.Pass,

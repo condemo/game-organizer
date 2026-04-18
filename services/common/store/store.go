@@ -48,7 +48,7 @@ func (s *Storage) CreateGame(g *types.Game) error {
 	(igdb_id,title,cover,screenshot,release_date,genres,developer,publisher,platforms,rating,
 	url,played,pending)
 	VALUES (:igdb_id,:title,:cover, :screenshot,:release_date,:genres,:developer,:publisher,:platforms,:rating,
-	:url,:played,:pending) ON CONFLICT (title) DO NOTHING RETURNING *`
+	:url,:played,:pending) ON CONFLICT (title) DO NOTHING RETURNING *;`
 	rows, err := s.db.NamedQueryContext(context.TODO(), q, g)
 	if err != nil {
 		return err
@@ -64,6 +64,16 @@ func (s *Storage) CreateGame(g *types.Game) error {
 }
 
 func (s *Storage) UpdateGame(g *types.Game) error {
+	q := `UPDATE games SET played=:played, pending=:pending WHERE id=:id RETURNING *;`
+	rows, err := s.db.NamedQueryContext(context.TODO(), q, g)
+	if err != nil {
+		return err
+	}
+
+	if err := rows.Close(); err != nil {
+		return err
+	}
+
 	return nil
 }
 

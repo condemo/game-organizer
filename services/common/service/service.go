@@ -58,6 +58,9 @@ func (s *GameOrganizerService) CreateGame(g *types.Game) error {
 
 // TODO:
 func (s *GameOrganizerService) UpdateGame(g *types.Game) error {
+	if err := s.st.UpdateGame(g); err != nil {
+		return err
+	}
 	return nil
 }
 

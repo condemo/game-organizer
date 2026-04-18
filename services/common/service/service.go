@@ -32,7 +32,6 @@ func (s *GameOrganizerService) GetOneGame(id int64) (*types.Game, error) {
 	return game, nil
 }
 
-// TODO:
 func (s *GameOrganizerService) GetGames() ([]types.GamePoltrait, error) {
 	games, err := s.st.GetGamesPoltrait()
 	if err != nil {
@@ -56,7 +55,6 @@ func (s *GameOrganizerService) CreateGame(g *types.Game) error {
 	return nil
 }
 
-// TODO:
 func (s *GameOrganizerService) UpdateGame(g *types.Game) error {
 	if err := s.st.UpdateGame(g); err != nil {
 		return err

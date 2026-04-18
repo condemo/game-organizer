@@ -23,7 +23,6 @@ func NewStorage(db *sqlx.DB) *Storage {
 	return &Storage{db: db}
 }
 
-// TODO:
 func (s *Storage) GetOneGame(id int64, game *types.Game) error {
 	q := `SELECT id, igdb_id, title, screenshot, cover, release_date, genres, developer, publisher,
 	platforms, rating, url, played, pending, created_at FROM games WHERE id=$1;`

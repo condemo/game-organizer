@@ -4,7 +4,10 @@ import (
 	"os"
 )
 
-var EnvConfig = newNevConfig()
+var (
+	EnvConfig = newNevConfig()
+	IGDBToken string
+)
 
 type envConfig struct {
 	Host string
@@ -15,9 +18,6 @@ type envConfig struct {
 }
 
 func newNevConfig() *envConfig {
-	// if err := godotenv.Load(); err != nil {
-	// 	log.Fatal(err)
-	// }
 	return &envConfig{
 		Host: os.Getenv("POSTGRES_HOST"),
 		Port: os.Getenv("POSTGRES_PORT"),

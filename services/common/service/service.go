@@ -17,9 +17,14 @@ func NewGameOrganizerService(st store.Storage) *GameOrganizerService {
 
 func (s *GameOrganizerService) GetFetchGame(igdbID int64) (*types.Game, error) {
 	// get raw game with gameFetcher
+	gameRes, err := s.gameFetcher.FetchOneGame(igdbID)
+	if err != nil {
+		return nil, err
+	}
 	// convertion to types.Game
+	game := gameRes.GetDBStruct()
 	// return to handler
-	return nil, nil
+	return &game, nil
 }
 
 func (s *GameOrganizerService) GetOneGame(id int64) (*types.Game, error) {
@@ -43,13 +48,17 @@ func (s *GameOrganizerService) GetGames() ([]types.GamePoltrait, error) {
 
 func (s *GameOrganizerService) Search(q string) ([]types.GameCard, error) {
 	// get raw game with gameFetcher
-	_, err := s.gameFetcher.Search(q)
+	gameRes, err := s.gameFetcher.Search(q)
 	if err != nil {
 		return nil, err
 	}
 	// convertion to []types.GameCard
+	var gamesCard []types.GameCard
+	for _, g := range gameRes {
+		gamesCard = append(gamesCard, g.GetDBStruct())
+	}
 	// return to handler
-	return nil, nil
+	return gamesCard, nil
 }
 
 func (s *GameOrganizerService) CreateGame(g *types.Game) error {

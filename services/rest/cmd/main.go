@@ -4,7 +4,7 @@ import (
 	"flag"
 	"log"
 
-	"github.com/condemo/game-organizer/services/common/fetch"
+	"github.com/condemo/game-organizer/services/common/service/fetch"
 	"github.com/condemo/game-organizer/services/rest/api"
 )
 

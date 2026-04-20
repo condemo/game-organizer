@@ -2,15 +2,6 @@ package types
 
 import "time"
 
-type IGDBCardResponse struct {
-	IgdbID            int64     `json:"id"`
-	Title             string    `json:"name"`
-	InvolvedCompanies []int     `json:"involved_companies"`
-	Cover             int       `json:"cover"`
-	Platforms         []int     `json:"platforms"`
-	ReleaseDate       time.Time `json:"first_release_date"`
-}
-
 type GameCard struct {
 	ID          int64     `json:"id"`
 	Title       string    `json:"title"`
@@ -26,19 +17,6 @@ type GamePoltrait struct {
 	Cover   string `db:"cover" json:"cover"`
 	Played  bool   `db:"played" json:"played"`
 	Pending bool   `db:"pending" json:"pending"`
-}
-
-type IGDBGameResponse struct {
-	IgdbID            int64     `json:"id"`
-	Screenshots       []int     `json:"screenshots"`
-	Title             string    `json:"name"`
-	ReleaseDate       time.Time `json:"first_release_date"`
-	Genres            []int     `json:"genres"`
-	Cover             int       `json:"cover"`
-	InvolvedCompanies []int     `json:"involved_companies"`
-	Platforms         []int     `json:"platforms"`
-	Rating            int       `json:"rating"`
-	Url               string    `json:"url"`
 }
 
 type Game struct {

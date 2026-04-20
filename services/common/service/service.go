@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github.com/condemo/game-organizer/services/common/fetch"
+	"github.com/condemo/game-organizer/services/common/service/fetch"
 	"github.com/condemo/game-organizer/services/common/store"
 	"github.com/condemo/game-organizer/services/common/types"
 )
@@ -43,6 +43,10 @@ func (s *GameOrganizerService) GetGames() ([]types.GamePoltrait, error) {
 
 func (s *GameOrganizerService) Search(q string) ([]types.GameCard, error) {
 	// get raw game with gameFetcher
+	_, err := s.gameFetcher.Search(q)
+	if err != nil {
+		return nil, err
+	}
 	// convertion to []types.GameCard
 	// return to handler
 	return nil, nil

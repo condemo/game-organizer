@@ -26,9 +26,9 @@ func NewGameFetcher() *GameFetcher {
 
 // TODO:
 func (gf *GameFetcher) Search(q string) ([]igdbCardResponse, error) {
-	fields := `fields id,name,cover,platforms,first_release_date,
+	fields := `fields id,name,cover.url,platforms,first_release_date,
 	involved_companies.developer, involved_companies.publisher,
-	involved_companies.company.name, platforms.name;`
+	involved_companies.company.name,platforms.name;`
 	bodyStr := fmt.Sprintf(
 		"search \"%s\";%s limit 5;", q, fields)
 	req, err := http.NewRequestWithContext(context.TODO(),
@@ -64,12 +64,10 @@ func (gf *GameFetcher) Search(q string) ([]igdbCardResponse, error) {
 
 // TODO:
 func (gf *GameFetcher) FetchOneGame(id int64) (*igdbGameResponse, error) {
-	fields := `fields id,name,cover,rating,url,
+	fields := `fields id,name,cover.url,rating,url,
 	screenshots.url,genres.name,involved_companies.developer,involved_companies.publisher,
-	involved_companies.company.name,platforms.name,platforms.platform_logo.url;`
+	involved_companies.company.name,platforms.name;`
 	bodyStr := fmt.Sprintf("%s where id = %d;", fields, id)
-
-	fmt.Println("body req: ", bodyStr)
 
 	req, err := http.NewRequestWithContext(context.TODO(),
 		http.MethodPost,
@@ -96,7 +94,6 @@ func (gf *GameFetcher) FetchOneGame(id int64) (*igdbGameResponse, error) {
 			return nil, err
 		}
 		if len(gameRes) > 0 {
-			fmt.Printf("game response: %+v\n", gameRes)
 			return &gameRes[0], nil
 		} else {
 			return nil, errors.New("empty game array response")

@@ -64,5 +64,46 @@ func (gf *GameFetcher) Search(q string) ([]igdbCardResponse, error) {
 
 // TODO:
 func (gf *GameFetcher) FetchOneGame(id int64) (*igdbGameResponse, error) {
+	fields := `fields id,name,cover,rating,url,
+	screenshots.url,genres.name,involved_companies.developer,involved_companies.publisher,
+	involved_companies.company.name,platforms.name,platforms.platform_logo.url;`
+	bodyStr := fmt.Sprintf("%s where id = %d;", fields, id)
+
+	fmt.Println("body req: ", bodyStr)
+
+	req, err := http.NewRequestWithContext(context.TODO(),
+		http.MethodPost,
+		gf.gameUrl,
+		strings.NewReader(bodyStr),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Authorization", "Bearer "+config.IGDBToken)
+	req.Header.Add("Client-ID", os.Getenv("IGDB_CLIENT_ID"))
+
+	res, err := gf.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+
+	// TODO: crear un switch que contemple los distintos status codes para devolver errores
+	// mas precisos y en caso de un 401 intente logearse una vez
+	if res.StatusCode == http.StatusOK {
+		var gameRes []igdbGameResponse
+		if err := json.NewDecoder(res.Body).Decode(&gameRes); err != nil {
+			return nil, err
+		}
+		if len(gameRes) > 0 {
+			fmt.Printf("game response: %+v\n", gameRes)
+			return &gameRes[0], nil
+		} else {
+			return nil, errors.New("empty game array response")
+		}
+	} else {
+		fmt.Printf("something went wrong: %s\n", res.Status)
+	}
+
 	return nil, nil
 }

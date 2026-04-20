@@ -26,12 +26,12 @@ func (c igdbCardResponse) GetDBStruct() types.GameCard {
 
 type igdbGameResponse struct {
 	IgdbID      int64 `json:"id"`
-	Screenshots struct {
+	Screenshots []struct {
 		Url string `json:"url"`
 	} `json:"screenshots"`
 	Title       string `json:"name"`
 	ReleaseDate int    `json:"first_release_date"`
-	Genres      struct {
+	Genres      []struct {
 		Name string `json:"name"`
 	} `json:"genres"`
 	Cover             int `json:"cover"`
@@ -42,17 +42,17 @@ type igdbGameResponse struct {
 			Name string `json:"name"`
 		} `json:"company"`
 	} `json:"involved_companies"`
-	Platforms struct {
+	Platforms []struct {
 		Name         string `json:"name"`
 		PlatformLogo struct {
 			Url string `json:"url"`
 		} `json:"platform_logo"`
 	} `json:"platforms"`
-	Rating int    `json:"rating"`
-	Url    string `json:"url"`
+	Rating float32 `json:"rating"`
+	Url    string  `json:"url"`
 }
 
 // TODO:
-func (c igdbGameResponse) GetDbStruct() types.Game {
+func (c igdbGameResponse) GetDBStruct() types.Game {
 	return types.Game{}
 }

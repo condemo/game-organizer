@@ -1,6 +1,8 @@
 package fetch
 
 import (
+	"encoding/json"
+	"log"
 	"strings"
 	"time"
 
@@ -22,6 +24,9 @@ type igdbCardResponse struct {
 	} `json:"cover"`
 	Platforms []struct {
 		Name string `json:"name"`
+		Logo struct {
+			Url string `json:"url"`
+		} `json:"platform_logo"`
 	} `json:"platforms"`
 	ReleaseDate int `json:"first_release_date"`
 }
@@ -40,11 +45,11 @@ func (c igdbCardResponse) GetDBStruct() types.GameCard {
 	}
 
 	// platforms
-	var pl []string
-	for _, p := range c.Platforms {
-		pl = append(pl, p.Name)
+	pl, err := json.Marshal(c.Platforms)
+	if err != nil {
+		log.Fatal(err)
 	}
-	gc.Platforms = strings.Join(pl, ",")
+	gc.Platforms = string(pl)
 
 	// ReleaseDate
 	gc.ReleaseDate = time.Unix(int64(c.ReleaseDate), 0)
@@ -77,6 +82,9 @@ type igdbGameResponse struct {
 	} `json:"involved_companies"`
 	Platforms []struct {
 		Name string `json:"name"`
+		Logo struct {
+			Url string `json:"url"`
+		} `json:"platform_logo"`
 	} `json:"platforms"`
 	Rating float32 `json:"rating"`
 	Url    string  `json:"url"`
@@ -117,11 +125,11 @@ func (c igdbGameResponse) GetDBStruct() types.Game {
 	}
 
 	// Platforms
-	var pl []string
-	for _, p := range c.Platforms {
-		pl = append(pl, p.Name)
+	pl, err := json.Marshal(c.Platforms)
+	if err != nil {
+		log.Fatal(err)
 	}
-	game.Platforms = strings.Join(pl, ",")
+	game.Platforms = string(pl)
 
 	return game
 }

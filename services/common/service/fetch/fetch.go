@@ -28,7 +28,7 @@ func NewGameFetcher() *GameFetcher {
 func (gf *GameFetcher) Search(q string) ([]igdbCardResponse, error) {
 	fields := `fields id,name,cover.url,platforms,first_release_date,
 	involved_companies.developer, involved_companies.publisher,
-	involved_companies.company.name,platforms.name;`
+	involved_companies.company.name,platforms.name,platforms.platform_logo.url;`
 	bodyStr := fmt.Sprintf(
 		"search \"%s\";%s limit 5;", q, fields)
 	req, err := http.NewRequestWithContext(context.TODO(),
@@ -66,7 +66,7 @@ func (gf *GameFetcher) Search(q string) ([]igdbCardResponse, error) {
 func (gf *GameFetcher) FetchOneGame(id int64) (*igdbGameResponse, error) {
 	fields := `fields id,name,cover.url,rating,url,
 	screenshots.url,genres.name,involved_companies.developer,involved_companies.publisher,
-	involved_companies.company.name,platforms.name;`
+	involved_companies.company.name,platforms.name,platforms.platform_logo.url;`
 	bodyStr := fmt.Sprintf("%s where id = %d;", fields, id)
 
 	req, err := http.NewRequestWithContext(context.TODO(),
